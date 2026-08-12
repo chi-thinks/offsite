@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Madani</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="page">
+
+        <div class="site-title">
+            Offsite Journal
+        </div>
+
+
+        <div class="entry">
+
+            <a href="#" class="date" id="date-link">
+                Wed 12th Aug
+            </a>
+
+            <div class="abstract" id="abstract">
+
+                <p>
+                    Coming soon: Offsite Vol. 1
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <script>
+
+        const dateLink = document.getElementById("date-link");
+        const abstract = document.getElementById("abstract");
+
+        dateLink.addEventListener("click", function(event) {
+
+            event.preventDefault();
+
+            abstract.classList.toggle("open");
+
+        });
+
+    </script>
+
+</body>
+
+</html>
