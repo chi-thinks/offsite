@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Offsite Journal</title>
 
     <link rel="stylesheet" href="style.css">
@@ -37,6 +38,16 @@
     </main>
 
 
+    <div class="volume-mark" aria-hidden="true">Vol. 1</div>
+
+
+    <div class="bottom-right">
+        Offsite is a theory and poetry journal whose name is the english translation of the french <em>horlieu</em>, Alain Badiou’s term for that which eludes the ordinary order of things. We welcome work that exists on the fringes of thought, affect, and expression, and reject whatever conforms to their status quo. Have something (in)appropriate? Submit it to OffsiteJournal@proton.me.
+
+Ran and owned by chiiii.
+    </div>
+
+
     <script>
 
         const dateLink = document.getElementById("date-link");
@@ -50,8 +61,50 @@
 
         });
 
+
+        const volumeMark = document.querySelector(".volume-mark");
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (volumeMark && !prefersReducedMotion) {
+
+            const threshold = 260;
+            const maxPush = 50;
+            const maxSquish = 0.22;
+
+            document.addEventListener("mousemove", function(event) {
+
+                const rect = volumeMark.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const dx = event.clientX - centerX;
+                const dy = event.clientY - centerY;
+                const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+
+                if (distance < threshold) {
+
+                    const strength = (threshold - distance) / threshold;
+
+                    const pushX = -(dx / distance) * strength * maxPush;
+                    const pushY = -(dy / distance) * strength * maxPush;
+
+                    const squishX = 1 - strength * maxSquish;
+                    const squishY = 1 + strength * maxSquish;
+
+                    volumeMark.style.transform =
+                        `translate(calc(-50% + ${pushX}px), calc(-50% + ${pushY}px)) scale(${squishX}, ${squishY})`;
+
+                } else {
+
+                    volumeMark.style.transform = "translate(-50%, -50%) scale(1, 1)";
+
+                }
+
+            });
+
+        }
+
     </script>
 
 </body>
-
 </html>

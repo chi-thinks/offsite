@@ -1,8 +1,19 @@
 @font-face {
-  font-family: "Cormorant Garamond";
-  src: url("fonts/CormorantGaramond-Regular.ttf") format("truetype");
+  font-family: "Libertinus Math";
+  src: url("fonts/LibertinusMath-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
+}
+
+
+:root {
+    --ink: #000000;
+    --ink-soft: #000000;
+
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-4: 32px;
 }
 
 
@@ -14,41 +25,43 @@
 body {
     margin: 0;
     background: white;
-    color: #111;
+    color: var(--ink);
 
-    font-family: "Cormorant Garamond", serif;
-    font-size: 20px;
-    font-weight: 250;
+    font-family: "Times New Roman", serif;
+    font-size: 14px;
+    font-weight: 150;
     line-height: 1.35;
 }
 
 
 .page {
     width: 100%;
-    padding: 15px 32px;
+    padding: var(--space-2) var(--space-4);
 }
 
 
 .site-title {
-    margin-bottom: 32px;
+    margin-bottom: var(--space-4);
 }
 
 
 .entry {
-    margin-bottom: 7px;
+    margin-bottom: var(--space-1);
+
+    animation: rise 0.6s ease both;
 }
 
 
 .date {
     display: block;
 
-    color: #555;
+    color: var(--ink);
     text-decoration: none;
 }
 
 
 .date:hover {
-    color: #000;
+    color: var(--ink);
 }
 
 
@@ -78,4 +91,82 @@ body {
 
 .abstract p {
     margin: 0 0 20px;
+
+    color: var(--ink-soft);
+    font-size: 13px;
+    max-width: 46ch;
+}
+
+.bottom-right {
+    position: fixed;
+    bottom: 15px;
+    right: 32px;
+
+    width: 200px;
+    text-align: right;
+
+    color: var(--ink-soft);
+    font-family: "Libertinus Math", "Times New Roman", serif;
+    font-size: 12px;
+    letter-spacing: 0.01em;
+
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bottom-right,
+    .entry {
+        animation: none;
+    }
+}
+
+
+.volume-mark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-family: "Libertinus Math", "Times New Roman", serif;
+    font-size: 220px;
+    line-height: 1;
+    color: var(--ink);
+    opacity: 0.05;
+
+    pointer-events: none;
+    user-select: none;
+
+    white-space: nowrap;
+
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform;
+}
+
+@media (max-width: 900px) {
+    .volume-mark {
+        display: none;
+    }
 }
